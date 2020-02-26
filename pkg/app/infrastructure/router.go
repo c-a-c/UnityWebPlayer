@@ -19,6 +19,9 @@ func init() {
 	router.GET("/", func(ctx *gin.Context) {
 		ctx.HTML(200, "index.html", gin.H{})
 	})
+	router.GET("/hello", func(ctx *gin.Context) {
+    		ctx.HTML(200, "helloworld.html", gin.H{})
+    })
 
 	Router = router
 }
