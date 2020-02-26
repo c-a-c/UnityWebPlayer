@@ -9,6 +9,7 @@ var Router *gin.Engine
 func init() {
 	router := gin.Default()
 	router.LoadHTMLGlob("../../UnityHTML/*.html")
+	router.LoadHTMLGlob("../../UnityHTML/admin/*.html")
 
 	// userController := controllers.NewUserController(NewSqlHandler())
 
@@ -20,7 +21,12 @@ func init() {
 		ctx.HTML(200, "index.html", gin.H{})
 	})
 	router.GET("/hello", func(ctx *gin.Context) {
-    		ctx.HTML(200, "helloworld.html", gin.H{})
+        ctx.HTML(200, "helloworld.html", gin.H{})
+    })
+
+    // admin
+    router.GET("/admin/upload", func(ctx *gin.Context) {
+        ctx.HTML(200, "gameUpload.html", gin.H{})
     })
 
 	Router = router
