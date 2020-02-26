@@ -4,7 +4,6 @@ import (
 	"UnityWebPlayer/interfaces/database"
 	"database/sql"
 	"fmt"
-	"log"
 	"os"
 
 	_ "github.com/go-sql-driver/mysql"
@@ -33,7 +32,6 @@ func NewSqlHandler() *SqlHandler {
 
 	conn, err := sql.Open(DBMS, connect)
 	if err != nil {
-		log.Println("!!!!!!!!!!!")
 		panic(err.Error)
 	}
 

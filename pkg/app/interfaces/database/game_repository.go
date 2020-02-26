@@ -10,9 +10,8 @@ type GameRepository struct {
 
 func (repo *GameRepository) FindById(identifier int) (game domain.Game, err error) {
 	row, err := repo.Query(
-		"select id, title, thumbneil from games where id=?;", identifier,
+		"select id, title from games where id=?;", identifier,
 	)
-
 	if err != nil {
 		return
 	}
@@ -20,20 +19,19 @@ func (repo *GameRepository) FindById(identifier int) (game domain.Game, err erro
 
 	var id int
 	var title string
-	var thumbneil string
-	if err = row.Scan(&id, &title, &thumbneil); err != nil {
+	row.Next()
+	if err = row.Scan(&id, &title); err != nil {
 		return
 	}
 
 	game.ID = id
 	game.Title = title
-	game.ThumbneilPath = thumbneil
 	return
 }
 
 func (repo *GameRepository) FindAll() (games domain.Games, err error) {
 	rows, err := repo.Query(
-		"select id, title, thumbneil from games;",
+		"select id, title from games;",
 	)
 	if err != nil {
 		return
@@ -43,15 +41,13 @@ func (repo *GameRepository) FindAll() (games domain.Games, err error) {
 	for rows.Next() {
 		var id int
 		var title string
-		var thumbneil string
 
-		if err := rows.Scan(&id, &title, &thumbneil); err != nil {
+		if err := rows.Scan(&id, &title); err != nil {
 			continue
 		}
 		game := domain.Game{
-			ID:            id,
-			Title:         title,
-			ThumbneilPath: thumbneil,
+			ID:    id,
+			Title: title,
 		}
 
 		games = append(games, game)
