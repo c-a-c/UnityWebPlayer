@@ -1,0 +1,28 @@
+version: "2"
+
+services:
+  goapp:
+    build: .
+    container_name: UnityWebPlayer_SERVER
+    environment:
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_NAME: UnityWebPlayer
+      DB_USER: root
+      DB_PASS: 
+    working_dir: /go/src/
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+
+  db:
+    image: mysql:latest
+    container_name: UnityWebPlayer_DB
+    environment:
+      MYSQL_DATABASE: UnityWebPlayer
+      MYSQL_USER: root
+      MYSQL_PASSWORD: 
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    ports:
+      - "3306:3306"
