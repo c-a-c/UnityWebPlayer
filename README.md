@@ -5,13 +5,14 @@
 
 ## フロントエンド
 
-## サーバサイド
-・言語：Go
+## Server-Side tech stack
+Language : Go
 
-・フレームワーク：Gin
+Framework : Gin
 
+Architecture : Clean Archi
 
-クリーンアーキテクチャ
+Struct of directory.
 ```
 └── src
     ├── app
@@ -21,8 +22,11 @@
     │   │   ├── controllers
     │   │   └── database
     │   ├── usecase
-    │   ├── server.go
-    │   └── UnityGames
+    │   ├── server.go : Main
+    │   ├── HTML : Default HTML files. Will be changed by js.
+    │   ├── Wating : Will be checked applications before deploy.
+    │   ├── Unity : Deployed applications.
+    │   └── Deleted : Pool of deleted applications from Unity.
 ```
 
 
