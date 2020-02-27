@@ -11,22 +11,26 @@ var Router *gin.Engine
 
 func init() {
 	router := gin.Default()
-	router.LoadHTMLGlob("HTML/*")
+	router.LoadHTMLGlob("../HTML/*")
 
 	gameController := controllers.NewGameController(NewSqlHandler())
 
-	// router.POST("/games", func(c *gin.Context) { userController.Create(c) })
+	// file
+	router.StaticFS("/play", http.Dir("../Unity"))
+
+	// top
+	router.GET("/", func(c *gin.Context) {
+		c.HTML(200, "top.html", gin.H{})
+	})
+
+	// game information
 	router.GET("/games", func(c *gin.Context) { gameController.Index(c) })
 	router.GET("/games/:id", func(c *gin.Context) { gameController.Show(c) })
 
-	router.GET("/", func(ctx *gin.Context) {
-		ctx.HTML(200, "top.html", gin.H{})
+	// redirect
+	router.NoRoute(func(c *gin.Context) {
+		c.HTML(200, "error.html", gin.H{})
 	})
-
-	router.NoRoute(func (c *gin.Context) {
-		c.HTML(http.StatusOK, "error.html", nil)
-	})
-
 
 	Router = router
 }
