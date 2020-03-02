@@ -21,14 +21,20 @@ type SqlRow struct {
 	Rows *sql.Rows
 }
 
-func NewSqlHandler() *SqlHandler {
-	DBMS := "mysql"
+func GetDBConnectInfo() (DBMS, connect string) {
+	DBMS = "mysql"
 	USER := os.Getenv("DB_USER")
 	PASS := os.Getenv("DB_PASS")
 	HOST := os.Getenv("DB_HOST")
 	PORT := os.Getenv("DB_PORT")
 	DBNAME := os.Getenv("DB_NAME")
-	connect := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s", USER, PASS, HOST, PORT, DBNAME)
+	connect = fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?parseTime=true", USER, PASS, HOST, PORT, DBNAME)
+
+	return
+}
+
+func NewSqlHandler() *SqlHandler {
+	DBMS, connect := GetDBConnectInfo()
 
 	conn, err := sql.Open(DBMS, connect)
 	if err != nil {
