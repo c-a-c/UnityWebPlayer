@@ -1,3 +1,6 @@
-/pkg/Unity/
+/pkg/Unity/*
 /pkg/HTML/
 /pkg/app/infrastructure/db_initializer
+
+pkg/main
+
