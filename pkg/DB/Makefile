@@ -1,0 +1,2 @@
+migrate:
+	bash migrate.sh
